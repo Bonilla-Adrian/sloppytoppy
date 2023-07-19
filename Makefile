@@ -1,18 +1,15 @@
-# makfile configuration
-COMMON_OBJECTS  = 
-CPU             = msp430g2553
-CFLAGS          = -mmcu=${CPU} -I../h -L/opt/ti/msp430_gcc/include
+# Compiler options
+CC = msp430-gcc
+CFLAGS = -mmcu=msp430g2553 -Os
 
-#switch the compiler (for the internal make rules)
-CC              = msp430-elf-gcc
-AS              = msp430-elf-as
+# Source files
+SRCS = main.c
 
-all: main.elf 
+# Output file name
+TARGET = main
 
-load: main.elf
-	msp430loader.sh  $^
+all:
+	$(CC) $(CFLAGS) $(SRCS) -o $(TARGET).elf
 
-clean: $^
-	rm -f *.o *.elf
-
-main.c: main.h
+clean:
+	rm -f $(TARGET).elf
