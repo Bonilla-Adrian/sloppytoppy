@@ -1,6 +1,6 @@
 // Example code snippet to play the main melody using buzzer.h
 #include <msp430.h>
-#include <buzzer.h>
+#include "buzzer.h"
 
 // Function to play a single tone
 void playTone(int frequency, int duration) {
