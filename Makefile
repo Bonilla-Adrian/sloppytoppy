@@ -1,6 +1,6 @@
 # Compiler options
 CPU             = msp430g2553
-CFLAGS          = -I../h -I../include
+CFLAGS          = -mmcu=${CPU} -I../h -L/opt/ti/msp430_gcc/include
 
 #switch the compiler (for the internal make rules)
 CC              = msp430-elf-gcc
