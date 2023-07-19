@@ -17,3 +17,5 @@ all:
 
 clean:
 	rm -f $(TARGET).elf
+buzzer.c: buzzer.h
+main.c: buzzer.h
