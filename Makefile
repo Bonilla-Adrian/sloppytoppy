@@ -1,5 +1,5 @@
 # Compiler options
-CC = msp430-gcc
+CC = msp430-elf-gcc
 CFLAGS = -mmcu=msp430g2553 -Os
 
 # Source files
