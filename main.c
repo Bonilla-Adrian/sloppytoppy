@@ -1,6 +1,6 @@
-// Example code snippet to play the main melody of "Never Gonna Give You Up"
+// Example code snippet to play the main melody using buzzer.h
 #include <msp430.h>
-#include <edu_boosterpack.h>
+#include <buzzer.h>
 
 // Function to play a single tone
 void playTone(int frequency, int duration) {
@@ -10,7 +10,7 @@ void playTone(int frequency, int duration) {
     int i;
     for (i = 0; i < duration * 1000 / period; i++) {
         // Toggle the buzzer GPIO pin to generate the tone
-        eduBoosterPack_toggleBuzzer();
+        buzzer_toggle();
         __delay_cycles(halfPeriod);
     }
 }
@@ -18,8 +18,6 @@ void playTone(int frequency, int duration) {
 int main(void) {
     // Initialize the system and button S1 pin
     WDTCTL = WDTPW + WDTHOLD;       // Stop WDT
-    eduBoosterPack_init();          // Initialize EduKit BoosterPack
-    eduBoosterPack_configureButtonS1AsInput(); // Configure button S1 as input
 
     // Define the frequencies for the notes in "Never Gonna Give You Up"
     int melody[] = {
@@ -28,9 +26,14 @@ int main(void) {
     
     int duration = 500; // Duration of each note in milliseconds
 
+    // Set up button S1 pin
+    P1DIR &= ~BIT3; // Set P1.3 as input
+    P1REN |= BIT3; // Enable pull-up resistor for P1.3
+    P1OUT |= BIT3; // Set pull-up resistor as active high
+
     while (1) {
         // Check if button S1 is pressed
-        if (eduBoosterPack_isButtonS1Pressed()) {
+        if (!(P1IN & BIT3)) {
             // Button S1 is pressed, play the melody of "Never Gonna Give You Up"
             int i;
             for (i = 0; i < sizeof(melody) / sizeof(melody[0]); i++) {
