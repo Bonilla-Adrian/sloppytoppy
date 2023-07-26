@@ -2,6 +2,10 @@
 #include "libTimer.h"
 #include "buzzer.h"
 
+// Add the definitions for the song notes and their corresponding frequencies
+#define NOTE_C4  7645 // Frequency for note C4
+#define NOTE_D4  6811 // Frequency for note D4
+
 void buzzer_init()
 {
     /* 
@@ -22,5 +26,11 @@ void buzzer_set_period(short cycles) /* buzzer clock = 2MHz.  (period of 1k resu
 {
   CCR0 = cycles; 
   CCR1 = cycles >> 1;		/* one half cycle */
+}
+
+void play_never_gonna_give_you_up()
+{
+    // TODO: Implement the logic to play the "Never Gonna Give You Up" song
+    // You can use the buzzer_set_period() function to play each note
 }
 
