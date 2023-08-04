@@ -1,36 +1,42 @@
 #include <msp430.h>
-#include "libTimer.h"
 #include "buzzer.h"
 
-// Add the definitions for the song notes and their corresponding frequencies
-#define NOTE_C4  7645 // Frequency for note C4
-#define NOTE_D4  6811 // Frequency for note D4
+#define NOTE_C 261
+#define NOTE_D 294
+#define NOTE_E 329
+#define NOTE_F 349
+#define NOTE_G 392
+#define NOTE_A 440
+#define NOTE_B 466
 
-void buzzer_init()
-{
-    /* 
-       Direct timer A output "TA0.1" to P2.6.  
-        According to table 21 from data sheet:
-          P2SEL2.6, P2SEL2.7, anmd P2SEL.7 must be zero
-          P2SEL.6 must be 1
-        Also: P2.6 direction must be output
-    */
-    timerAUpmode();		/* used to drive speaker */
-    P2SEL2 &= ~(BIT6 | BIT7);
-    P2SEL &= ~BIT7; 
-    P2SEL |= BIT6;
-    P2DIR = BIT6;		/* enable output to speaker (P2.6) */
+float melody[] = {
+    NOTE_E, NOTE_D, NOTE_E, NOTE_F, NOTE_G
+    // Define the rest of the melody sequence here
+};
+
+int noteDurations[] = {
+    4, 4, 4, 4, 4
+    // Define the rest of the note durations here
+};
+
+void buzzer_init() {
+    P1SEL |= BIT2; // Select TA0.1 for P1.2
+    P1DIR |= BIT2; // Set P1.2 to output
+    TACTL |= TASSEL_2 + MC_1; // SMCLK, up mode
+    TACCR0 = 1000-1; // PWM period
+    TACCR1 = 0; // PWM duty cycle, initially off
+    TACTL |= TAIE; // Enable Timer A interrupt
 }
 
-void buzzer_set_period(short cycles) /* buzzer clock = 2MHz.  (period of 1k results in 2kHz tone) */
-{
-  CCR0 = cycles; 
-  CCR1 = cycles >> 1;		/* one half cycle */
+void play_melody() {
+    int melodyLength = sizeof(melody) / sizeof(melody[0]);
+    for (int i = 0; i < melodyLength; i++) {
+        float duration = 1000 / noteDurations[i];
+        float note = melody[i];
+        TACCR1 = (int)(note / (1000000 / 1000)); // Set the PWM duty cycle for the note
+        __delay_cycles(duration * 1000000); // Wait for the duration of the note
+        TACCR1 = 0; // Turn off the buzzer between notes
+        __delay_cycles(duration * 250000); // Short pause between notes
+    }
+    TACCR1 = 0; // Turn off the buzzer at the end of the melody
 }
-
-void play_never_gonna_give_you_up()
-{
-    // TODO: Implement the logic to play the "Never Gonna Give You Up" song
-    // You can use the buzzer_set_period() function to play each note
-}
-

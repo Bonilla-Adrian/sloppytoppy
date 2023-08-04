@@ -1,23 +1,15 @@
-# makfile configuration
-COMMON_OBJECTS  = 
-CPU             = msp430g2553
-CFLAGS          = -mmcu=${CPU} -I../h -L/opt/ti/msp430_gcc/include
+CC = msp430-elf-gcc
+CFLAGS = -mmcu=${CPU} -I../h -L/opt/ti/msp430_gcc/include
+OBJS = main.o buzzer.o button.o
+TARGET = rickroll.elf
 
-#switch the compiler (for the internal make rules)
-CC              = msp430-elf-gcc
-AS              = msp430-elf-as
+all: $(TARGET)
 
-all: buzzer.elf 
+$(TARGET): $(OBJS)
+	$(CC) $(CFLAGS) -o $@ $^
 
-#additional rules for files
-buzzer.elf: ${COMMON_OBJECTS} buzzer.o buzzerMain.o ../lib/libTimer.a
-	${CC} ${CFLAGS} -o $@ $^
+load: $(TARGET)
+	msp430loader.sh $^
 
-load: buzzer.elf
-	msp430loader.sh  $^
-
-clean: $^
+clean:
 	rm -f *.o *.elf
-
-buzzer.c: buzzer.h
-buzzerMain.c: buzzer.h

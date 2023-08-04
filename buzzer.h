@@ -1,8 +1,7 @@
-#ifndef buzzer_included
-#define buzzer_included
+#ifndef BUZZER_H
+#define BUZZER_H
 
-void buzzer_init();
-void buzzer_set_period(short cycles);
-void play_never_gonna_give_you_up();
+void buzzer_init(void);
+void play_melody(void);
 
-#endif // included
+#endif // BUZZER_H
