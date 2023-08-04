@@ -1,25 +1,31 @@
 #include <msp430.h>
 
 // Define the frequencies for musical notes
-#define NOTE_C4  261.63
-#define NOTE_D4  293.66
-#define NOTE_E4  329.63
-#define NOTE_F4  349.23
-#define NOTE_G4  392.00
-#define NOTE_A4  440.00
-#define NOTE_B4  493.88
+#define NOTE_B3 246.94
+#define NOTE_C4 261.63
+#define NOTE_D4 293.66
+#define NOTE_E4 329.63
+#define NOTE_F4 349.23
+#define NOTE_G4 392.00
+#define NOTE_A4 440.00
 
 // Define the frequency for the system clock (SMCLK)
 #define SMCLK_FREQ 1000000  // Assuming SMCLK is set to 1MHz
 
-// Define the melody sequence
+// Define the melody sequence (simplified version of "Never Gonna Give You Up")
 float melody[] = {
-    NOTE_C4, NOTE_C4, NOTE_G4, NOTE_G4, NOTE_A4, NOTE_A4, NOTE_G4
+    NOTE_D4, NOTE_B3, NOTE_A4, NOTE_B3,
+    NOTE_D4, NOTE_B3, NOTE_A4, NOTE_B3,
+    NOTE_D4, NOTE_B3, NOTE_A4, NOTE_B3,
+    NOTE_D4, NOTE_B3, NOTE_A4, NOTE_B3,
 };
 
 // Define the duration for each note in the melody
 int noteDurations[] = {
-    4, 4, 4, 4, 4, 4, 2  // 4 represents a quarter note, 2 represents a half note, etc.
+    4, 8, 4, 8,
+    4, 8, 4, 8,
+    4, 8, 4, 8,
+    4, 8, 4, 8,
 };
 
 // Set up Timer A to run in up mode
@@ -83,7 +89,7 @@ int main(void)
         playBuzzer(melody[i]);
         delay_ms(1000 / noteDurations[i]);
         stopBuzzer();
-        delay_ms(250 / noteDurations[i]);  // Short delay between notes
+        delay_ms(250);  // Short delay between notes
     }
 
     return 0;
