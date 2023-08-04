@@ -1,31 +1,35 @@
 #include <msp430.h>
 
 // Define the frequencies for musical notes
-#define NOTE_B3 246.94
-#define NOTE_C4 261.63
-#define NOTE_D4 293.66
-#define NOTE_E4 329.63
-#define NOTE_F4 349.23
-#define NOTE_G4 392.00
-#define NOTE_A4 440.00
+#define NOTE_A  440.00
+#define NOTE_B  493.88
+#define NOTE_Cs 554.37
+#define NOTE_D  587.33
+#define NOTE_E  659.26
+#define NOTE_Fs 739.99
+#define NOTE_REST 0.00 // Represents a rest or pause
 
 // Define the frequency for the system clock (SMCLK)
 #define SMCLK_FREQ 1000000  // Assuming SMCLK is set to 1MHz
 
-// Define the melody sequence (simplified version of "Never Gonna Give You Up")
+// Define the melody sequence
 float melody[] = {
-    NOTE_D4, NOTE_B3, NOTE_A4, NOTE_B3,
-    NOTE_D4, NOTE_B3, NOTE_A4, NOTE_B3,
-    NOTE_D4, NOTE_B3, NOTE_A4, NOTE_B3,
-    NOTE_D4, NOTE_B3, NOTE_A4, NOTE_B3,
+    NOTE_A, NOTE_B, NOTE_D, NOTE_B, NOTE_Fs, NOTE_Fs, NOTE_E,
+    NOTE_A, NOTE_B, NOTE_D, NOTE_B, NOTE_E, NOTE_E, NOTE_D, NOTE_Cs, NOTE_B,
+    NOTE_A, NOTE_B, NOTE_D, NOTE_B, NOTE_D, NOTE_E, NOTE_Cs, NOTE_A, NOTE_A, NOTE_E, NOTE_D,
+    NOTE_A, NOTE_B, NOTE_D, NOTE_B, NOTE_Fs, NOTE_Fs, NOTE_E,
+    NOTE_A, NOTE_B, NOTE_D, NOTE_B, NOTE_A, NOTE_Cs, NOTE_D, NOTE_Cs, NOTE_B,
+    NOTE_A, NOTE_B, NOTE_D, NOTE_B, NOTE_D, NOTE_E, NOTE_Cs, NOTE_A, NOTE_A, NOTE_E, NOTE_D
 };
 
 // Define the duration for each note in the melody
 int noteDurations[] = {
-    4, 8, 4, 8,
-    4, 8, 4, 8,
-    4, 8, 4, 8,
-    4, 8, 4, 8,
+    8, 8, 4, 8, 4, 8, 2,
+    8, 8, 4, 8, 4, 8, 8, 8, 2,
+    8, 8, 4, 8, 8, 8, 8, 8, 4, 4, 4,
+    8, 8, 4, 8, 4, 8, 2,
+    8, 8, 4, 8, 8, 8, 8, 8, 2,
+    8, 8, 4, 8, 8, 8, 8, 8, 4, 4, 4,
 };
 
 // Set up Timer A to run in up mode
@@ -86,7 +90,11 @@ int main(void)
 
     // Play the melody
     for (int i = 0; i < sizeof(melody) / sizeof(melody[0]); i++) {
-        playBuzzer(melody[i]);
+        if (melody[i] != NOTE_REST) {
+            playBuzzer(melody[i]);
+        } else {
+            stopBuzzer();
+        }
         delay_ms(1000 / noteDurations[i]);
         stopBuzzer();
         delay_ms(250);  // Short delay between notes
