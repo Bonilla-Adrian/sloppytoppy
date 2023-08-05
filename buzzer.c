@@ -7,15 +7,17 @@
 
 // Functions related to timer and buzzer initialization and control
 
+void timerAUpmode()
+{
+    TA0CCR0 = 0;  // Initialize counter to 0
+    TA0CCR1 = 0;  // Initialize duty cycle to 0% (off)
+    TA0CTL |= TASSEL_2 + MC_1;  // Source: SMCLK, Mode: Up to CCR0
+    TA0CCTL1 |= OUTMOD_7;  // Output mode: Reset on CCR1, set on CCR0
+}
+
 void buzzer_init() {
     // Set up Timer A to run in up mode
-    timerAUpmode()
-    {
-        TA0CCR0 = 0;  // Initialize counter to 0
-        TA0CCR1 = 0;  // Initialize duty cycle to 0% (off)
-        TA0CTL |= TASSEL_2 + MC_1;  // Source: SMCLK, Mode: Up to CCR0
-        TA0CCTL1 |= OUTMOD_7;  // Output mode: Reset on CCR1, set on CCR0
-    }
+    timerAUpmode();
     P2SEL2 &= ~(BIT6 | BIT7);
     P2SEL &= ~BIT7; 
     P2SEL |= BIT6;
