@@ -3,9 +3,6 @@
 #include "melody.h"
 #include "buzzer.h"
 
-// Define the frequency for the system clock (SMCLK)
-#define SMCLK_FREQ 1000000  // Assuming SMCLK is set to 1MHz
-
 // Main function
 int main(void)
 {

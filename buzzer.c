@@ -1,6 +1,9 @@
 #include "buzzer.h"
 #include <msp430.h>
 
+// Define the frequency for the system clock (SMCLK)
+#define SMCLK_FREQ 1000000  // Assuming SMCLK is set to 1MHz
+
 // Functions related to timer and buzzer initialization and control
 
 void buzzer_init() {
