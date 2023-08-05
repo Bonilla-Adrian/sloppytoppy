@@ -2,7 +2,7 @@
 
 // Define the frequencies for musical notes
 #define NOTE_A  440.00
-#define NOTE_As 932.33
+#define NOTE_As 466.16
 #define NOTE_B  493.88
 #define NOTE_Cs 554.37
 #define NOTE_D  587.33
