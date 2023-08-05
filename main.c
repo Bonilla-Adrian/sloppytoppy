@@ -2,6 +2,7 @@
 
 // Define the frequencies for musical notes
 #define NOTE_A  440.00
+#define NOTE_As 932.33
 #define NOTE_B  493.88
 #define NOTE_Cs 554.37
 #define NOTE_D  587.33
@@ -18,7 +19,7 @@ float melody[] = {
     NOTE_A, NOTE_B, NOTE_D, NOTE_B, NOTE_E, NOTE_E, NOTE_D, NOTE_Cs, NOTE_B,
     NOTE_A, NOTE_B, NOTE_D, NOTE_B, NOTE_D, NOTE_E, NOTE_Cs, NOTE_A, NOTE_A, NOTE_E, NOTE_D, NOTE_REST,
     NOTE_A, NOTE_B, NOTE_D, NOTE_B, NOTE_Fs, NOTE_Fs, NOTE_E,
-    NOTE_A, NOTE_B, NOTE_D, NOTE_B, NOTE_Fs, NOTE_E, NOTE_Fs, NOTE_E, NOTE_B, NOTE_REST,
+    NOTE_A, NOTE_B, NOTE_D, NOTE_B, NOTE_As, NOTE_Cs, NOTE_D, NOTE_Cs, NOTE_B, NOTE_REST,
     NOTE_A, NOTE_B, NOTE_D, NOTE_B, NOTE_D, NOTE_E, NOTE_Cs, NOTE_A, NOTE_A, NOTE_E, NOTE_D
 };
 
@@ -26,10 +27,10 @@ float melody[] = {
 int noteDurations[] = {
     16, 16, 8, 16, 4, 8, 2,
     16, 16, 8, 16, 4, 8, 16, 16, 2,
-    16, 16, 8, 16, 4, 8, 16, 16, 4, 4, 2, 4,
+    16, 16, 8, 16, 4, 8, 16, 16, 4, 4, 2, 8,
     16, 16, 8, 16, 4, 8, 2,
-    16, 16, 8, 16, 8, 8, 16, 16, 4, 4,
-    16, 16, 8, 16, 8, 8, 16, 16, 4, 4, 2,
+    16, 16, 8, 16, 4, 8, 16, 16, 4, 8,
+    16, 16, 8, 16, 4, 8, 16, 16, 4, 4, 4,
 };
 
 // Set up Timer A to run in up mode
