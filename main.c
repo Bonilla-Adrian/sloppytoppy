@@ -2,7 +2,7 @@
 
 // Define the frequencies for musical notes
 #define NOTE_A  440.00
-#define NOTE_As 466.16
+#define NOTE_A5 880.00
 #define NOTE_B  493.88
 #define NOTE_Cs 554.37
 #define NOTE_D  587.33
@@ -19,7 +19,7 @@ float melody[] = {
     NOTE_A, NOTE_B, NOTE_D, NOTE_B, NOTE_E, NOTE_E, NOTE_D, NOTE_Cs, NOTE_B,
     NOTE_A, NOTE_B, NOTE_D, NOTE_B, NOTE_D, NOTE_E, NOTE_Cs, NOTE_A, NOTE_A, NOTE_E, NOTE_D, NOTE_REST,
     NOTE_A, NOTE_B, NOTE_D, NOTE_B, NOTE_Fs, NOTE_Fs, NOTE_E,
-    NOTE_A, NOTE_B, NOTE_D, NOTE_B, NOTE_As, NOTE_Cs, NOTE_D, NOTE_Cs, NOTE_B, NOTE_REST,
+    NOTE_A, NOTE_B, NOTE_D, NOTE_B, NOTE_A5, NOTE_Cs, NOTE_D, NOTE_Cs, NOTE_B, NOTE_REST,
     NOTE_A, NOTE_B, NOTE_D, NOTE_B, NOTE_D, NOTE_E, NOTE_Cs, NOTE_A, NOTE_A, NOTE_E, NOTE_D
 };
 
