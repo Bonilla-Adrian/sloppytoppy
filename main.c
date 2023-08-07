@@ -18,8 +18,11 @@ int main(void)
     // Enable global interrupts
     __bis_SR_register(GIE);
 
+    playMelody(melody, noteDurations, melodyLength);
+
     while(1)
     {
+        playMelody(melody, noteDurations, melodyLength);
         // Enter low power mode
         __bis_SR_register(LPM4_bits);
     }
