@@ -15,8 +15,7 @@ void buttons_init(void) {
     P2IE |= (S1 | S2 | S3 | S4);         // Enable interrupts for P2.0 to P2.3
 }
 
-#pragma vector=PORT2_VECTOR
-__interrupt void Port_2(void)
+__attribute__((interrupt(PORT2_VECTOR))) void Port_2(void)
 {
     if(P2IFG & S1) // If interrupt source is S1
     {
