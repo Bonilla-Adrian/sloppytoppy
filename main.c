@@ -4,6 +4,8 @@
 #include "buzzer.h"
 #include "buttons.h"
 
+volatile unsigned int playFlag = 0;  // Add a flag for melody playback
+
 // Main function
 int main(void)
 {
@@ -20,9 +22,13 @@ int main(void)
 
     while(1)
     {
+        if(playFlag) // Check if the playFlag is set
+        {
+            playMelody(melody, noteDurations, melodyLength);
+            playFlag = 0; // Reset the flag
+        }
         // Enter low power mode
         __bis_SR_register(LPM4_bits);
-        playMelody(melody, noteDurations, melodyLength);
     }
 
     return 0;

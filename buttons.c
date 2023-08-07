@@ -3,6 +3,8 @@
 #include "melody.h"
 #include "buzzer.h"
 
+extern volatile unsigned int playFlag; // Reference the flag from main.c
+
 void buttons_init(void) {
     P2DIR &= ~(S1 | S2 | S3 | S4);       // Set P2.0 to P2.3 as inputs
     P2REN |= (S1 | S2 | S3 | S4);        // Enable pull-up resistors for P2.0 to P2.3
@@ -18,8 +20,7 @@ __interrupt void Port_2(void)
 {
     if(P2IFG & S1) // If interrupt source is S1
     {
-        // Play the melody
-        playMelody(melody, noteDurations, melodyLength);
+        playFlag = 1; // Set the flag
         P2IFG &= ~S1; // Clear interrupt flag for P2.0
     }
 

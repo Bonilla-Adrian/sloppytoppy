@@ -2,6 +2,7 @@
 #define BUTTONS_H_
 #include <msp430.h>
 
+extern volatile unsigned int playFlag; // Declare the playFlag variable for external access
 
 #define S1 BIT0  // P2.0
 #define S2 BIT1  // P2.1
