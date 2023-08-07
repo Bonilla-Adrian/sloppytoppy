@@ -2,6 +2,7 @@
 #include "notes.h"
 #include "melody.h"
 #include "buzzer.h"
+#include "buttons.h"
 
 // Main function
 int main(void)
@@ -9,12 +10,19 @@ int main(void)
     WDTCTL = WDTPW + WDTHOLD;  // Stop watchdog timer
 
     buzzer_init();  // Initialize the buzzer
+    buttons_init(); // Initialize the buttons
 
     P1DIR |= (BIT0 | BIT1);  // Set P1.0 and P1.1 as outputs
     P1OUT &= ~(BIT0 | BIT1);  // Ensure LEDs are off to start
 
-    // Play the melody
-    playMelody(melody, noteDurations, melodyLength);
+    // Enable global interrupts
+    __bis_SR_register(GIE);
+
+    while(1)
+    {
+        // Enter low power mode
+        __bis_SR_register(LPM4_bits);
+    }
 
     return 0;
 }
