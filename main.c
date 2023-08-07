@@ -24,8 +24,10 @@ int main(void)
     {
         if(playFlag) // Check if the playFlag is set
         {
+            __bic_SR_register(GIE); // Disable global interrupts
             playMelody(melody, noteDurations, melodyLength);
             playFlag = 0; // Reset the flag
+            __bis_SR_register(GIE); // Enable global interrupts
         }
         // Enter low power mode
         __bis_SR_register(LPM4_bits);
